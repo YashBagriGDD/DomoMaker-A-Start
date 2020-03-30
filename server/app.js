@@ -1,31 +1,31 @@
-//import libraries
+// import libraries
 const path = require('path');
 const express = require('express');
 const compression = require('compression');
 const favicon = require('serve-favicon');
-const  cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const expressHandlers = require('express-handlebars');
+const expressHandlebars = require('express-handlebars');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 const dbURL = process.env.MONGODB_URI || 'mongodb://localhost/DomoMaker';
 
-//Setup mongoose options to use newer functionality
+// Setup mongoose options to use newer functionality
 const mongooseOptions = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
 
 mongoose.connect(dbURL, mongooseOptions, (err) => {
-    if (err) {
-        console.log('Could not connect to database');
-        throw err;
-    }
+  if (err) {
+    console.log('Could not connect to database');
+    throw err;
+  }
 });
 
-//Pull in our routes
+// Pull in our routes
 const router = require('./router.js');
 
 const app = express();
