@@ -42,14 +42,14 @@ DomoSchema.statics.toAPI = (doc) => ({
 });
 
 DomoSchema.statics.findByOwner = (ownerId, callback) => {
-  // const search = {
-  //   owner: convertId(ownerId),
-  // };
+  const search = {
+    owner: convertId(ownerId),
+  };
 
-  // return DomoModel.find(search).select('name age').lean().exec(callback);
-
-  return DomoModel.select('name age').lean().exec(callback);
+  return DomoModel.find(search).select('name age').lean().exec(callback);
 };
+
+DomoSchema.statics.findAll = (callback) => DomoModel.select('name age').lean().exec(callback);
 
 DomoModel = mongoose.model('Domo', DomoSchema);
 
