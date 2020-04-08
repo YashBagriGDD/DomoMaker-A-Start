@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const expressHandlebars = require('express-handlebars');
 const session = require('express-session');
-const RedisStore = require("connect-redis")(session);
+const RedisStore = require('connect-redis')(session);
 const url = require('url');
 const redis = require('redis');
 const csrf = require('csurf');
@@ -34,14 +34,14 @@ mongoose.connect(dbURL, mongooseOptions, (err) => {
 let redisURL = {
   hostname: 'redis-14035.c16.us-east-1-2.ec2.cloud.redislabs.com',
   port: '14035',
-}
+};
 
-let redisPASS = "rFxkMbynOR27vXdO5GXs9JX5kd6EzbMF";
-if(process.env.REDISCLOUD_URL) {
+let redisPASS = 'rFxkMbynOR27vXdO5GXs9JX5kd6EzbMF';
+if (process.env.REDISCLOUD_URL) {
   redisURL = url.parse(process.env.REDISCLOUD_URL);
   [, redisPASS] = redisURL.auth.split(':');
 }
-let redisClient = redis.createClient({
+const redisClient = redis.createClient({
   host: redisURL.hostname,
   port: redisURL.port,
   password: redisPASS,
@@ -77,7 +77,7 @@ app.set('views', `${__dirname}/../views`);
 app.use(cookieParser());
 
 // csrf must come AFTER app.use(cookieParser());
-//should come before router
+// should come before router
 app.use(csrf());
 app.use((err, req, res, next) => {
   if (err.code !== 'EBADCSRFTOKEN') return next(err);
